@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Movement : MonoBehaviour {
+
+    [SerializeField] private float speed;
+    [SerializeField] private float inputX;
+    [SerializeField] private float inputY;
+
+    [SerializeField] private Rigidbody2D rb;
+
+	void Start () {
+        rb = GetComponent<Rigidbody2D>();
+	}
+	
+	void Update () {
+        Inputs();
+        Move();
+    }
+
+    private void Move()
+    {
+        Vector2 moving = inputX * transform.right + inputY * transform.up;
+
+        rb.MovePosition(rb.position + moving * speed * Time.deltaTime);
+    }
+    
+    private void Inputs()
+    {
+        inputX = Input.GetAxis("Horizontal");
+        inputY = Input.GetAxis("Vertical");
+    }
+}
